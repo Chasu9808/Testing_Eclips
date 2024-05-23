@@ -1,56 +1,53 @@
 package com.busanit501.samplejsp501.connectTest;
 
-import com.busanit501.samplejsp501.todo.dao.MemberDAO;
-import com.busanit501.samplejsp501.todo.domain.MemberVO;
+import com.busanit501.samplejsp501.menu.dao.MenuMemberDAO;
+import com.busanit501.samplejsp501.menu.domain.MenuMemberVO;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @Log4j2
-public class MemberDAOTest {
-  private MemberDAO memberDAO;
+public class MemberDAOTest2 {
+  private MenuMemberDAO menuMemberDAO;
 
   @BeforeEach
   public void ready() {
-    memberDAO = new MemberDAO();
+    menuMemberDAO = new MenuMemberDAO();
   }
 
   @Test
   public void getSelectOne() throws Exception {
-    MemberVO memberVO = memberDAO.getWithPasswordMember("lcs","1234");
+    MenuMemberVO menuMemberVO = menuMemberDAO.getWithPasswordMember("lcs", "1234");
     // 기본 출력이고, 전체 출력
 //    System.out.println("memberVO : " + memberVO);
-    log.info("memberVO : " + memberVO);
+    log.info("menuMemberVO : " + menuMemberVO);
 
   }
 
   @Test
   public void insertMember() throws Exception {
-    MemberVO memberVO = MemberVO.builder()
-        .mid("lsy0523")
+    MenuMemberVO menuMemberVO = MenuMemberVO.builder()
+        .mid("lsy0723")
         .mpw("1234")
-        .mname("이상용0523")
+        .mname("이상용0723")
         .build();
-   memberDAO.insertMember(memberVO);
+   menuMemberDAO.insertMember(menuMemberVO);
  // 디비 콘솔에서 확인하기.
 
   }
 
   @Test
   public void updateUUID() throws Exception {
-    memberDAO.updateUUID("lsy","testuuid22222222222");
+    menuMemberDAO.updateUUID("lcs","testuuid22222222222");
     // 기본 출력이고, 전체 출력
-//    System.out.println("memberVO : " + memberVO);
     // 디비 콘솔에서 확인해보기.
 
   }
 
   @Test
   public void selectUUID() throws Exception {
-    MemberVO memberVO = memberDAO.selectUUID("d508307d-2f79-4f48-91f7-8a52568e8fbe");
+    MenuMemberVO menuMemberVO = menuMemberDAO.selectUUID("testuuid22222222222");
     // 기본 출력이고, 전체 출력
-//    System.out.println("memberVO : " + memberVO);
-    log.info("memberVO : " + memberVO);
     // 디비 콘솔에서 확인해보기.
 
   }

@@ -2,8 +2,6 @@ package com.busanit501.samplejsp501.login;
 
 import com.busanit501.samplejsp501.menu.dto.MenuMemberDTO;
 import com.busanit501.samplejsp501.menu.service.MenuMemberService;
-import com.busanit501.samplejsp501.todo.dto.MemberDTO;
-import com.busanit501.samplejsp501.todo.service.MemberService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,14 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "signUpController", urlPatterns = "/signup")
-public class SignUpController extends HttpServlet {
+@WebServlet(name = "menusignUpController", urlPatterns = "/menusignup")
+public class MenuSignUpController extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     // 로그인 입력폼으로 전달.
     System.out.println("get 으로 signup 처리");
-    RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/login/signup.jsp");
+    RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/login/menusignup.jsp");
     requestDispatcher.forward(req, resp);
   }
 
@@ -32,7 +30,20 @@ public class SignUpController extends HttpServlet {
     String mname = req.getParameter("mname");
     String mpw = req.getParameter("mpw");
 
-    // 화면에서 입력받은 아이디, 패스워드, 이름, 어디 담죠? MemberDTO -> 서비스
+    // 화면에서 입력받은 아이디, 패스워드, 이름, 어디 담죠? MemberDTO -> 서비스 
+
+    MenuMemberDTO menuMemberDTO = MenuMemberDTO.builder()
+            .mid(mid)
+            .mpw(mpw)
+            .mname(mname)
+            .build();
+
+    try {
+      MenuMemberService.INSTANCE.insertMember(menuMemberDTO);
+      resp.sendRedirect("/menulogin");
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
 
 
   }// doPost 닫는 부분
